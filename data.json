@@ -39,9 +39,9 @@
         "items": [
           { "q": "Is it really hot?", "a": "We have levels! Original is a slow burn, Habanero is for the fire-breathers." },
           { "q": "Shelf life?", "a": "Stays fresh for up to 6 months. Keep the jar closed!" },
-          { "q": "Is it vegan?", "a": "100%. No bees, no dairy, just plants and fire." }
-          { "q": "Do I need to refrigerate it?", "a": "Technically no, but keeping it cool preserves that 'just-made' kick for longer." }
-          { "q": "What do I put it on?", "a": "Everything. Eggs, pizza, your neighbor's boring stir-fry—it’s a total flavor upgrade." }
+          { "q": "Is it vegan?", "a": "100%. No bees, no dairy, just plants and fire." },
+          { "q": "Do I need to refrigerate it?", "a": "Technically no, but keeping it cool preserves that 'just-made' kick for longer." },
+          { "q": "What do I put it on?", "a": "Everything. Eggs, pizza, your neighbor's boring stir-fry—it’s a total flavor upgrade." },
           { "q": "Is it gluten-free?", "a": "Absolutely. All the crunch, none of the wheat. Totally safe for the GF crew." }
         ]
       },
