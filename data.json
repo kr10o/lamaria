@@ -39,7 +39,7 @@
         "items": [
           { "q": "Is it really hot?", "a": "We have levels! Original is a slow burn, Habanero is for the fire-breathers." },
           { "q": "Shelf life?", "a": "Stays fresh for up to 6 months. Keep the jar closed!" },
-          { "q": "Is it vegan?", "a": "100%. No bees, no dairy, just plants and fire." }
+          { "q": "Is it vegan?", "a": "100%. No bees, no dairy, just plants and fire." },
           { "q": "Do I need to refrigerate it?", "a": "Technically no, but keeping it cool preserves that 'just-made' kick for longer." },
           { "q": "What do I put it on?", "a": "Everything. Eggs, pizza, your neighbor's boring stir-fry—it’s a total flavor upgrade." },
           { "q": "Is it gluten-free?", "a": "Absolutely. All the crunch, none of the wheat. Totally safe for the GF crew." }
@@ -66,7 +66,7 @@
         "items": [
           { "q": "Je li jako ljuto?", "a": "Imamo razine! Original je blag, Habanero je za one koji dišu vatru." },
           { "q": "Rok trajanja?", "a": "Ostaje svježe do 6 mjeseci. Držite staklenku zatvorenom!" },
-          { "q": "Je li vegansko?", "a": "100%. Nema pčela, nema mliječnih proizvoda, samo biljke i vatra." }
+          { "q": "Je li vegansko?", "a": "100%. Nema pčela, nema mliječnih proizvoda, samo biljke i vatra." },
           { "q": "Moram li ga držati u hladnjaku?", "a": "Tehnički ne, ali hladnoća dulje čuva onaj intenzivan okus kao da je tek napravljen." },
           { "q": "Uz što ga najbolje kombinirati?", "a": "Uz sve. Jaja, pizza, susjedov dosadni stir-fry—ovo je totalni nadogradnja okusa." },
           { "q": "Sadrži li gluten?", "a": "Apsolutno ne. Sva hrskavost, nula pšenice. Potpuno sigurno za GF ekipu." }
