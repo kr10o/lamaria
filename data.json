@@ -1,0 +1,75 @@
+{
+  "products": [
+    { "id": "sm-01", "translationKey": "original", "price": 12.00, "spiceLevel": 3, "image": "https://lamariasalsa.com/assets/images/image01.png?v=c04130b6" },
+    { "id": "sm-02", "translationKey": "chipotle", "price": 13.50, "spiceLevel": 2, "image": "https://lamariasalsa.com/assets/images/image04.png?v=c04130b6" },
+    { "id": "sm-03", "translationKey": "habanero", "price": 14.00, "spiceLevel": 5, "image": "https://lamariasalsa.com/assets/images/image01.png?v=c04130b6" }
+  ],
+  "posts": [
+    {
+      "slug": "history-of-salsa-macha",
+      "title": "The Fiery History of Salsa Macha",
+      "date": "March 20, 2026",
+      "categories": ["history", "culture"],
+      "excerpt": "Discover the roots of Mexico's crunchiest, smokiest condiment.",
+      "content": "<p>Salsa macha originated in Veracruz. Unlike traditional salsas, it uses absolutely no water, relying instead on high-quality oils to preserve the deeply toasted chiles, nuts, and seeds...</p>"
+    },
+    {
+      "slug": "5-ways-to-eat-salsa-macha",
+      "title": "5 Ways to Eat Salsa Macha (Besides Tacos)",
+      "date": "March 22, 2026",
+      "categories": ["recipes", "lifestyle"],
+      "excerpt": "Put it on eggs, pizza, and even ice cream.",
+      "content": "<p>You already know it goes on tacos. But have you tried drizzling it over a hot slice of pizza? Or mixing it into your morning scrambled eggs? Here are five unexpected ways to use our signature macha...</p>"
+    }
+  ],
+  "translations": {
+    "en": {
+      "nav": { "flavors": "Flavors", "story": "Story", "recipes": "Recipes", "blog": "Blog" },
+      "hero": { "title_start": "SPICE", "title_mid": "WITH", "title_end": "SOUL.", "subtitle": "Handcrafted Salsa Macha.", "cta_main": "Get Some", "cta_sec": "Our Story" },
+      "process": { "badge": "Real Process", "title": "MADE FROM", "title_accent": "FIRE.", "desc": "Slow-fried chiles, seeds, and nuts. No preservatives." },
+      "products": {
+        "title": "THE LINEUP",
+        "original": { "name": "ORIGINAL MACHA", "desc": "The Chiapas classic. Fried chiles, garlic, seeds. Pure crunch." },
+        "chipotle": { "name": "SMOKY CHIPOTLE", "desc": "Deep smoke, slight sweetness. The taco perfector." },
+        "habanero": { "name": "FUEGO HABANERO", "desc": "Intense heat. Fruity notes. Not for the timid." }
+      },
+      "story": { "title_1": "MEXICO BORN.", "title_2": "CROATIA MADE.", "p1": "Born in Chiapas. Refined in Koprivnica.", "p2": "Traditional techniques meets local premium oils." },
+      "faq": {
+        "title": "Spicy Questions",
+        "items": [
+          { "q": "Is it really hot?", "a": "We have levels! Original is a slow burn, Habanero is for the fire-breathers." },
+          { "q": "Shelf life?", "a": "Stays fresh for up to 6 months. Keep the jar closed!" },
+          { "q": "Is it vegan?", "a": "100%. No bees, no dairy, just plants and fire." }
+        ]
+      },
+      "cart": { "title": "YOUR BAG", "empty": "Bag Empty", "total": "TOTAL", "checkout": "Checkout" },
+      "checkout": { "title": "Checkout", "back": "Back to Shop", "summary": "Order Summary", "pay": "Confirm Order", "complete_title": "Complete Order", "complete_desc": "Proceed to our secure order form to finalize your details.", "total": "TOTAL" },
+      "blog": { "title": "The Spice Blog", "all": "All", "loading": "Loading posts...", "read_post": "Read Post", "no_posts": "No posts found in this category.", "back": "Back to Blog", "not_found_title": "Post not found", "not_found_desc": "This spice level does not exist." },
+      "footer": { "est": "Est. 2024 • Koprivnica, Croatia", "prod": "Artisanal Salsa Macha Production", "stay_spicy": "Stay Spicy", "email_placeholder": "EMAIL ADDRESS", "join": "JOIN", "copy": "© 2024 La Maria. Authentic Salsa Macha." }
+    },
+    "hr": {
+      "nav": { "flavors": "Okusi", "story": "Priča", "recipes": "Recepti", "blog": "Blog" },
+      "hero": { "title_start": "ZAČIN", "title_mid": "S", "title_end": "DUŠOM.", "subtitle": "Ručno rađena Salsa Macha.", "cta_main": "Kupi Odmah", "cta_sec": "Naša Priča" },
+      "process": { "badge": "Pravi Proces", "title": "STVORENO IZ", "title_accent": "VATRE.", "desc": "Sporo pržene papričice, sjemenke i orasi. Bez konzervansa." },
+      "products": {
+        "title": "PONUDA",
+        "original": { "name": "ORIGINAL MACHA", "desc": "Klasik iz Chiapas. Pržene papričice, češnjak, sjemenke. Čista hrskavost." },
+        "chipotle": { "name": "DIMLJENI CHIPOTLE", "desc": "Duboki dim, blaga slatkoća. Savršenstvo za tacose." },
+        "habanero": { "name": "VATRENI HABANERO", "desc": "Intenzivna vrućina. Voćne note. Nije za one slabog srca." }
+      },
+      "story": { "title_1": "ROĐENO U MEKSIKU.", "title_2": "PROIZVEDENO U HR.", "p1": "Izvorno iz Chiapas. Usavršeno u Koprivnici.", "p2": "Tradicionalne tehnike susreću vrhunska lokalna ulja." },
+      "faq": {
+        "title": "Pitanja",
+        "items": [
+          { "q": "Je li jako ljuto?", "a": "Imamo razine! Original je blag, Habanero je za one koji dišu vatru." },
+          { "q": "Rok trajanja?", "a": "Ostaje svježe do 6 mjeseci. Držite staklenku zatvorenom!" },
+          { "q": "Je li vegansko?", "a": "100%. Nema pčela, nema mliječnih proizvoda, samo biljke i vatra." }
+        ]
+      },
+      "cart": { "title": "VAŠA KOŠARICA", "empty": "Košarica je prazna", "total": "UKUPNO", "checkout": "Blagajna" },
+      "checkout": { "title": "Blagajna", "back": "Povratak", "summary": "Pregled", "pay": "Potvrdi Narudžbu", "complete_title": "Završi Narudžbu", "complete_desc": "Nastavite na naš sigurni obrazac za narudžbu kako biste dovršili detalje.", "total": "UKUPNO" },
+      "blog": { "title": "Spice Blog", "all": "Sve", "loading": "Učitavanje objava...", "read_post": "Pročitaj Objavu", "no_posts": "Nema objava u ovoj kategoriji.", "back": "Natrag na Blog", "not_found_title": "Objava nije pronađena", "not_found_desc": "Ova razina ljutine ne postoji." },
+      "footer": { "est": "Osn. 2024 • Koprivnica, Hrvatska", "prod": "Artizanska Proizvodnja Salse Mache", "stay_spicy": "Ostanite Ljuti", "email_placeholder": "EMAIL ADRESA", "join": "PRIDRUŽI SE", "copy": "© 2024 La Maria. Autentična Salsa Macha." }
+    }
+  }
+}
