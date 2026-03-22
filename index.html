@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Maria - Salsa Macha</title>
+    <meta name="description" content="Handcrafted Salsa Macha. Artisanal, Spicy, Crunchy.">
+
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.bunny.net/css?family=open-sans:400,600,700|oswald:400,700,900&display=swap">
+    <link href="https://fonts.bunny.net/css?family=open-sans:400,600,700|oswald:400,700,900&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="styles.css" />
+    
+    <script defer src="scripts.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<div id="app" x-data="app" x-cloak>
+    
+    <div x-show="!appConfig" style="position: fixed; inset: 0; background: white; z-index: 999; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 2rem; text-align: center;">
+        <template x-if="!appError">
+            <p class="font-display uppercase" style="font-weight: 700; font-size: 1.5rem;">Loading Data...</p>
+        </template>
+        <template x-if="appError">
+            <div style="max-width: 500px;">
+                <p class="font-display uppercase text-red" style="font-weight: 900; font-size: 2rem; margin-bottom: 1rem;">Data Error</p>
+                <p style="font-weight: 600; color: #4b5563; word-break: break-word;" x-text="appError"></p>
+                <div style="margin-top: 1.5rem; font-size: 0.875rem; border: 1px solid var(--color-black); padding: 1rem; border-radius: var(--radius-squircle-sm); background-color: var(--color-gray); text-align: left;">
+                    <p style="font-weight: 700; margin-bottom: 0.5rem;">To fix this issue:</p>
+                    <p>There is a syntax error in your GitHub <b>data.json</b> file.</p>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <template x-if="appConfig">
+        <div class="app-ready-wrapper">
+            <nav class="site-nav" :class="{ 'scrolled': isScrolled }">
+                <div class="container nav-inner">
+                    <div @click="goToView('home')" class="nav-logo">La<span class="text-red">Maria</span>.</div>
+                    
+                    <div class="nav-links" :class="{ 'mobile-open': isMobileMenuOpen }">
+                        <template x-for="navLink in ['flavors', 'story']" :key="navLink">
+                            <button @click="scrollToSection(navLink)" class="nav-link" x-text="tr.nav?.[navLink]"></button>
+                        </template>
+                        <button @click="goToBlog()" class="nav-link text-red" x-text="tr.nav?.blog"></button>
+                    </div>
+
+                    <div class="nav-actions">
+                        <button @click="toggleLang" class="nav-action-btn" x-text="lang === 'en' ? 'HR' : 'EN'"></button>
+                        <button @click="isCartOpen = true; isMobileMenuOpen = false;" class="nav-action-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                            <span x-show="cartCount > 0" class="cart-badge" x-text="cartCount"></span>
+                        </button>
+                        <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="mobile-toggle">
+                            <svg x-show="!isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                            <svg x-show="isMobileMenuOpen" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <div x-show="isCartOpen" style="position: relative; z-index: 60;">
+                <div x-show="isCartOpen" x-transition.opacity class="cart-overlay" @click="isCartOpen = false"></div>
+                <div class="cart-drawer" :class="{ 'open': isCartOpen }">
+                    <div class="cart-header">
+                        <h2 x-text="tr.cart?.title"></h2>
+                        <button @click="isCartOpen = false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        </button>
+                    </div>
+                    <div class="cart-body">
+                        <div x-show="cart.length === 0" class="text-center" style="color: #9ca3af; padding: 3rem 0; font-weight: 700; text-transform: uppercase; font-size: 1rem;" x-text="tr.cart?.empty"></div>
+                        <template x-for="item in cart" :key="item.cartItemId">
+                            <div class="cart-item squircle-sm">
+                                <img :src="item.image" class="cart-item-img squircle-sm">
+                                <div class="cart-item-details">
+                                    <div class="cart-item-top">
+                                        <div>
+                                            <span style="display: block;" x-text="tr.products?.[item.translationKey]?.name"></span>
+                                            <span style="font-size: 0.75rem; color: var(--color-red); display: block; margin-top: 0.1rem; font-weight: 800;" x-text="'🌶️ ' + item.heat + '/5'"></span>
+                                        </div>
+                                        <span x-text="'€' + (item.price * item.qty).toFixed(2)"></span>
+                                    </div>
+                                    <div class="qty-controls">
+                                        <button @click="updateCartQty(item.cartItemId, -1)">-</button>
+                                        <span x-text="item.qty"></span>
+                                        <button @click="updateCartQty(item.cartItemId, 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    <div class="cart-footer">
+                        <div class="cart-total"><span x-text="tr.cart?.total"></span><span x-text="'€' + cartTotal"></span></div>
+                        <button @click="handleCheckout" class="btn btn-black btn-full squircle-sm" style="padding: 1rem;" x-text="tr.cart?.checkout"></button>
+                    </div>
+                </div>
+            </div>
+
+            <main class="site-main">
+                
+                <div x-show="view === 'home'">
+                    <section id="home" class="hero-section">
+                        <div class="container grid-2 section-pad">
+                            <div class="reveal">
+                                <h1 class="hero-title">
+                                    <span x-text="tr.hero?.title_start"></span><br/>
+                                    <span x-text="tr.hero?.title_mid"></span><br/>
+                                    <span class="text-red text-outline hero-title-shadow" x-text="tr.hero?.title_end"></span>
+                                </h1>
+                                <p class="hero-subtitle" x-text="tr.hero?.subtitle"></p>
+                                <div class="hero-actions">
+                                    <button @click="scrollToSection('flavors')" class="btn btn-primary squircle-sm" x-text="tr.hero?.cta_main"></button>
+                                    <button @click="scrollToSection('story')" class="btn btn-outline squircle-sm" x-text="tr.hero?.cta_sec"></button>
+                                </div>
+                            </div>
+                            <div class="reveal hero-image-wrap">
+                                <img src="https://lamariasalsa.com/assets/images/image01.png?v=1540659d" alt="Salsa Macha Jar" />
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="marquee-wrapper">
+                        <div class="marquee-content animate-marquee">
+                            <span>Artisanal • Spicy • Crunchy • Mexican • Handmade • Vegan • Non-GMO</span>
+                            <span>Artisanal • Spicy • Crunchy • Mexican • Handmade • Vegan • Non-GMO</span>
+                            <span>Artisanal • Spicy • Crunchy • Mexican • Handmade • Vegan • Non-GMO</span>
+                        </div>
+                    </div>
+
+                    <section id="process" class="process-section section-pad">
+                        <div class="container grid-2">
+                            <div class="reveal img-stack">
+                                <div class="img-stack-bg squircle"></div>
+                                <img src="https://lamariasalsa.com/assets/images/image05.jpg?v=c04130b6" alt="Fresh ingredients" class="img-stack-fg squircle shadow-hard" />
+                            </div>
+                            <div class="reveal">
+                                <span class="process-badge" x-text="tr.process?.badge"></span>
+                                <h2 class="process-title">
+                                    <span x-text="tr.process?.title"></span> <span class="text-red" x-text="tr.process?.title_accent"></span>
+                                </h2>
+                                <p class="process-desc" x-text="tr.process?.desc"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="flavors" class="section-pad">
+                        <div class="container">
+                            <h2 class="section-title reveal" x-text="tr.products?.title"></h2>
+                            <div class="grid-3">
+                                <template x-for="product in products" :key="product.id">
+                                    <div class="product-card squircle" x-data="{ selectedHeat: product?.spiceLevel || 3 }">
+                                        <div class="product-img-wrap">
+                                            <img :src="product?.image" :alt="tr.products?.[product?.translationKey]?.name">
+                                        </div>
+                                        <h3 class="product-title" x-text="tr.products?.[product?.translationKey]?.name"></h3>
+                                        <p class="product-desc" x-text="tr.products?.[product?.translationKey]?.desc"></p>
+                                        
+                                        <div style="margin-top: auto; margin-bottom: 1.5rem;">
+                                            <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem; color: #4b5563;">
+                                                <span x-text="lang === 'hr' ? 'Ljutina' : 'Spice Level'"></span>
+                                                <span class="text-red" x-text="selectedHeat + '/5'"></span>
+                                            </div>
+                                            <input type="range" min="1" max="5" step="1" x-model.number="selectedHeat" class="heat-slider">
+                                        </div>
+
+                                        <div class="product-footer">
+                                            <span class="product-price" x-text="'€' + product?.price?.toFixed(2)"></span>
+                                            <button @click="addToCart(product, selectedHeat)" class="add-btn squircle-sm" aria-label="Add to cart">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                            
+                            <div class="ugc-section reveal" style="margin-top: 5rem;">
+                                <h3 class="section-title" style="font-size: clamp(1.5rem, 4vw, 2.5rem); border-bottom: none; text-align: center; display: block;">Spicing Up Your Meals</h3>
+                                <div class="ugc-grid">
+                                    <template x-for="item in ugcItems" :key="item.id">
+                                        <div class="ugc-card">
+                                            <img :src="item.img" alt="Customer Review">
+                                            <div class="ugc-overlay">
+                                                <div class="ugc-handle" x-text="item.handle"></div>
+                                                <div class="ugc-text" x-text="item.text"></div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="story" class="section-pad" style="background: rgba(245, 245, 245, 0.5);">
+                        <div class="container">
+                            <div class="reveal grid-2" style="margin-bottom: 3rem; align-items: start;">
+                                <div style="background: var(--color-white); border: var(--border-thick); padding: 2rem; box-shadow: var(--shadow-hard); border-radius: var(--radius-squircle-sm);">
+                                    <h2 class="hero-title" style="margin-bottom: 1.5rem; font-size: clamp(2.5rem, 6vw, 3.5rem); line-height: 1;" x-text="tr.story?.title_1"></h2>
+                                    <div class="story-text"><p style="margin-bottom: 0;" x-text="tr.story?.p1"></p></div>
+                                </div>
+                                <div style="background: var(--color-white); border: var(--border-thick); padding: 2rem; box-shadow: var(--shadow-hard); border-radius: var(--radius-squircle-sm); margin-top: 2rem;">
+                                    <h2 class="hero-title text-red" style="margin-bottom: 1.5rem; font-size: clamp(2.5rem, 6vw, 3.5rem); line-height: 1;" x-text="tr.story?.title_2"></h2>
+                                    <div class="story-text"><p style="margin-bottom: 0; border-left-color: var(--color-black);" x-text="tr.story?.p2"></p></div>
+                                </div>
+                            </div>
+                            <img src="https://lamariasalsa.com/assets/images/image05.jpg?v=3d4db3b0" alt="Making process" class="squircle shadow-hard" style="border: var(--border-thick); width: 100%; max-height: 450px; object-fit: cover;" />
+                        </div>
+                    </section>
+
+                    <div class="marquee-wrapper mirrored">
+                        <div class="marquee-content animate-marquee reverse">
+                            <span>Artisanal • Spicy • Crunchy • Mexican • Handmade • Vegan • Non-GMO</span>
+                            <span>Artisanal • Spicy • Crunchy • Mexican • Handmade • Vegan • Non-GMO</span>
+                            <span>Artisanal • Spicy • Crunchy • Mexican • Handmade • Vegan • Non-GMO</span>
+                        </div>
+                    </div>
+
+                    <section id="faq" class="section-pad container">
+                        <h2 class="section-title text-center" style="display: block; border-bottom: none; margin-bottom: 2rem;" x-text="tr.faq?.title"></h2>
+                        <div class="faq-wrap">
+                            <template x-for="(faqItem, i) in (Array.isArray(tr.faq?.items) ? tr.faq?.items : [])" :key="i">
+                                <div x-data="{ open: false }" class="faq-item squircle-sm">
+                                    <div style="border-radius: inherit; overflow: hidden; position: relative;">
+                                        <button @click="open = !open" class="faq-btn">
+                                            <span x-text="faqItem.q"></span>
+                                            <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                                            <svg x-show="open" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+                                        </button>
+                                        <div x-show="open" x-transition class="faq-content" style="padding-top: 0.5rem;" x-text="faqItem.a"></div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </section>
+                </div>
+
+                <div x-show="view === 'blog'" class="section-pad container container-sm" x-cloak>
+                    <div class="blog-header"><h1 class="section-title" x-text="tr.blog?.title"></h1></div>
+                    <div class="category-filters" x-show="allCategories.length > 0">
+                        <button @click="filterCategory(null)" class="cat-tag" :class="{'active': activeCategory === null}" x-text="tr.blog?.all"></button>
+                        <template x-for="category in allCategories" :key="category">
+                            <button @click="filterCategory(category)" class="cat-tag" :class="{'active': activeCategory === category}" x-text="category"></button>
+                        </template>
+                    </div>
+                    
+                    <div class="post-list">
+                        <template x-if="isLoadingPosts"><p class="text-center font-display" style="font-weight: 700; text-transform: uppercase; grid-column: 1/-1;" x-text="tr.blog?.loading"></p></template>
+                        <template x-for="blogPost in filteredPosts" :key="blogPost.slug">
+                            <article class="post-card squircle">
+                                <a href="#" @click.prevent="goToPost(blogPost.slug)" class="post-img-wrap" x-show="blogPost?.image">
+                                    <img :src="blogPost?.image" :alt="blogPost?.translations?.[lang]?.title || blogPost?.title">
+                                </a>
+                                <div class="post-card-content">
+                                    <div class="post-meta">
+                                        <span class="text-red" x-text="blogPost?.date"></span>
+                                        <div style="display: flex; gap: 0.25rem;">
+                                            <template x-for="category in (blogPost?.categories || [])" :key="category"><span style="font-size: 0.625rem; background: var(--color-gray); padding: 0.25rem 0.5rem; border-radius: 10px; border: 1px solid var(--color-black);" x-text="category"></span></template>
+                                        </div>
+                                    </div>
+                                    <h2 class="post-card-title"><a href="#" @click.prevent="goToPost(blogPost.slug)" x-text="blogPost?.translations?.[lang]?.title || blogPost?.title"></a></h2>
+                                    <p class="post-excerpt" x-text="blogPost?.translations?.[lang]?.excerpt || blogPost?.excerpt"></p>
+                                    <button @click="goToPost(blogPost.slug)" class="btn btn-black squircle-sm" style="align-self: flex-start;" x-text="tr.blog?.read_post"></button>
+                                </div>
+                            </article>
+                        </template>
+                        <template x-if="!isLoadingPosts && filteredPosts.length === 0"><p class="text-center" style="grid-column: 1/-1;" x-text="tr.blog?.no_posts"></p></template>
+                    </div>
+                </div>
+
+                <div x-show="view === 'post'" class="section-pad container container-sm" x-cloak>
+                    <button @click="goToBlog(activeCategory)" class="back-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                        <span x-text="tr.blog?.back"></span>
+                    </button>
+
+                    <template x-if="currentPost">
+                        <article class="single-post-card squircle">
+                            <img x-show="currentPost?.image" :src="currentPost?.image" :alt="currentPost?.translations?.[lang]?.title || currentPost?.title" class="single-post-img shadow-hard" />
+                            <div class="post-meta">
+                                <span class="text-red" x-text="currentPost?.date"></span>
+                                <div style="display: flex; gap: 0.25rem;">
+                                    <template x-for="category in (currentPost?.categories || [])" :key="category"><button @click="goToBlog(category)" style="font-size: 0.625rem; background: var(--color-gray); padding: 0.25rem 0.5rem; border-radius: 10px; border: 1px solid var(--color-black); cursor: pointer; text-transform: uppercase; font-weight: 700;" x-text="category"></button></template>
+                                </div>
+                            </div>
+                            <h1 class="single-post-title" x-text="currentPost?.translations?.[lang]?.title || currentPost?.title"></h1>
+                            <div class="post-content" x-html="currentPost?.translations?.[lang]?.content || currentPost?.content"></div>
+                        </article>
+                    </template>
+                    
+                    <template x-if="!currentPost && !isLoadingPosts">
+                        <div class="text-center section-pad">
+                            <h2 class="hero-title" style="font-size: clamp(2rem, 8vw, 4rem);" x-text="tr.blog?.not_found_title"></h2>
+                            <p style="font-weight: 700; font-size: 1.25rem;" x-text="tr.blog?.not_found_desc"></p>
+                        </div>
+                    </template>
+                </div>
+
+                <div x-show="view === 'checkout'" class="section-pad container container-sm" x-cloak>
+                    <button @click="goToView('home')" class="back-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                        <span x-text="tr.checkout?.back"></span>
+                    </button>
+                    <div class="checkout-wrap squircle">
+                        <h1 class="checkout-title" x-text="tr.checkout?.title"></h1>
+                        <div class="grid-2">
+                            <div class="checkout-summary">
+                                <h3 x-text="tr.checkout?.summary"></h3>
+                                <div style="margin-bottom: 1.5rem;">
+                                    <template x-for="item in (checkoutBundle ? checkoutBundle.items : [])" :key="item.cartItemId">
+                                        <div class="checkout-item" style="align-items: flex-start;">
+                                            <div>
+                                                <span style="display: block;" x-text="item.qty + 'x ' + tr.products?.[item.translationKey]?.name"></span>
+                                                <span style="font-size: 0.75rem; color: var(--color-red); display: block; margin-top: 0.1rem; font-weight: 800;" x-text="'🌶️ Lvl ' + item.heat"></span>
+                                            </div>
+                                            <span x-text="'€' + (item.price * item.qty).toFixed(2)"></span>
+                                        </div>
+                                    </template>
+                                </div>
+                                <div class="checkout-total">
+                                    <span x-text="tr.checkout?.total"></span>
+                                    <span x-text="checkoutBundle ? '€' + checkoutBundle.total : '€0.00'"></span>
+                                </div>
+                            </div>
+                            <div class="checkout-action-box squircle-sm">
+                                <h4 x-text="tr.checkout?.complete_title"></h4>
+                                <p x-text="tr.checkout?.complete_desc"></p>
+                                <button @click="proceedToCarrd($event)" class="btn btn-primary btn-full squircle-sm" x-text="tr.checkout?.pay"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </template>
+</div>
+
+</body>
+</html>
