@@ -8,18 +8,54 @@
     {
       "slug": "history-of-salsa-macha",
       "title": "The Fiery History of Salsa Macha",
+      "title_hr": "Vatrena povijest Salse Mache",
       "date": "March 20, 2026",
       "categories": ["history", "culture"],
       "excerpt": "Discover the roots of Mexico's crunchiest, smokiest condiment.",
-      "content": "<p>Salsa macha originated in Veracruz. Unlike traditional salsas, it uses absolutely no water, relying instead on high-quality oils to preserve the deeply toasted chiles, nuts, and seeds...</p>"
+      "excerpt_hr": "Otkrijte korijene najhrskavijeg i najdimljenijeg meksičkog začina.",
+      "content": "<p>Salsa macha originated in Veracruz. Unlike traditional salsas, it uses absolutely no water, relying instead on high-quality oils to preserve the deeply toasted chiles, nuts, and seeds...</p>",
+      "content_hr": "<p>Salsa macha potječe iz Veracruza. Za razliku od tradicionalnih salsa, uopće ne koristi vodu, već se oslanja na visokokvalitetna ulja kako bi sačuvala duboko pržene čili papričice, orašaste plodove i sjemenke...</p>"
     },
     {
       "slug": "5-ways-to-eat-salsa-macha",
       "title": "5 Ways to Eat Salsa Macha (Besides Tacos)",
+      "title_hr": "5 načina kako jesti Salsu Machu (osim u tacosima)",
       "date": "March 22, 2026",
       "categories": ["recipes", "lifestyle"],
       "excerpt": "Put it on eggs, pizza, and even ice cream.",
-      "content": "<p>You already know it goes on tacos. But have you tried drizzling it over a hot slice of pizza? Or mixing it into your morning scrambled eggs? Here are five unexpected ways to use our signature macha...</p>"
+      "excerpt_hr": "Stavite je na jaja, pizzu, pa čak i na sladoled.",
+      "content": "<p>You already know it goes on tacos. But have you tried drizzling it over a hot slice of pizza? Or mixing it into your morning scrambled eggs? Here are five unexpected ways to use our signature macha...</p>",
+      "content_hr": "<p>Već znate da ide uz tacose. Ali jeste li je pokušali preliti preko vrućeg komada pizze? Ili umiješati u jutarnju kajganu? Evo pet neočekivanih načina za korištenje naše prepoznatljive mache...</p>"
+    }
+  ],
+  "ugcItems": [
+    {
+      "id": 1,
+      "handle": "@spice_queen",
+      "text": "This changed my morning eggs forever. Highly recommend!",
+      "text_hr": "Ovo je zauvijek promijenilo moja jutarnja jaja. Topla preporuka!",
+      "img": "https://lamariasalsa.com/assets/images/image05.jpg?v=c04130b6"
+    },
+    {
+      "id": 2,
+      "handle": "@taco.tuesday.everyday",
+      "text": "Crunchy, smoky, perfect. The chipotle flavor is amazing.",
+      "text_hr": "Hrskavo, dimljeno, savršeno. Okus chipotlea je nevjerojatan.",
+      "img": "https://lamariasalsa.com/assets/images/image04.png?v=c04130b6"
+    },
+    {
+      "id": 3,
+      "handle": "@pizza.fiend",
+      "text": "Drizzled on my slice... my mind is blown.",
+      "text_hr": "Preliveno preko moje pizze... apsolutno oduševljenje.",
+      "img": "https://lamariasalsa.com/assets/images/image01.png?v=1540659d"
+    },
+    {
+      "id": 4,
+      "handle": "@vegan.bites",
+      "text": "Love that this is entirely plant-based and adds so much depth.",
+      "text_hr": "Obožavam što je potpuno na biljnoj bazi i daje toliko dubine okusu.",
+      "img": "https://lamariasalsa.com/assets/images/image05.jpg?v=3d4db3b0"
     }
   ],
   "translations": {
